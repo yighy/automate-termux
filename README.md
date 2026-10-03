@@ -141,6 +141,12 @@ The `.flo` files open in [Automate Web Builder](https://xosh.org/AutomateWebBuil
 desktop-sized editor for Automate flows. Use **Open** on the `.flo` file. Do not go through
 its JSON import: that turns variables and expressions into plain text and breaks the flow.
 
+## Acknowledgements
+
+The flows were generated with the library of
+[Automate Web Builder](https://github.com/SMUsamaShah/AutomateWebBuilder) (MIT), which reads
+and writes Automate's `.flo` format.
+
 ## License
 
 [MIT](LICENSE)
