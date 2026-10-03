@@ -63,17 +63,19 @@ On Android:
 
 It has three entry points:
 
-- **Run command**: asks for a command and a run mode, then shows the output in a dialog.
+- **Run command**: asks for a command, a run mode and whether to keep the device awake, then
+  shows the output in a dialog.
 - **Termux API**: for other flows. Start it with a **Flow start** block and this payload:
 
   ```
-  {"command": "uname -a", "mode": "background", "reply": replyAction}
+  {"command": "uname -a", "mode": "background", "wakeLock": 0, "reply": replyAction}
   ```
 
   | Key | Value |
   | --- | --- |
   | `command` | Run with `bash -c`, so pipes, `;`, `&&` and quotes work. |
   | `mode` | `"background"` (default, no window) or `"terminal"` (opens a Termux session that shows the output live). |
+  | `wakeLock` | `1` keeps the device awake until the command finishes, `0` (default) does not. See [Wake lock](#wake-lock). |
   | `reply` | Optional broadcast action. When set, the result is sent back as an app broadcast with that action and the extras `{"output": text, "exit": number}`. Without it, the command runs and the result is discarded. |
 
 - **README**: the documentation page.
@@ -94,14 +96,27 @@ be started.
 The reply is an app broadcast restricted to Automate's own package, so other apps do not
 receive the output.
 
+### Wake lock
+
+With `wakeLock` set to `1`, the flow keeps the CPU and Wi-Fi awake from the start of the
+command until its result is ready, then lets the device sleep again. It uses Automate's
+**Device keep awake** block, whose lock belongs to that run only, so several runs do not
+release each other's lock.
+
+Termux's own wake lock (`termux-wake-lock`, or *Acquire wakelock* in its notification) is
+never acquired or released by these flows. If it is on, it stays on, whatever `wakeLock` is.
+A run with `wakeLock` set to `0` changes nothing: the device may sleep only if nothing else
+keeps it awake.
+
 ## Callers: Termux · …
 
-The settings are the first three **Variable set** blocks:
+The settings are the first four **Variable set** blocks:
 
 | Variable | Value |
 | --- | --- |
 | `command` | The bash command. In an Automate string, `{…}` inserts an expression; write `\{` for a literal brace. |
 | `mode` | `"background"` or `"terminal"`. |
+| `wakeLock` | `1` to keep the device awake until the command finishes, `0` not to. |
 | `waitForOutput` | `1` to get the result back in this flow, `0` to only start the command (nothing is shown). |
 
 With `waitForOutput = 1`, the caller makes up a unique broadcast action, passes it as

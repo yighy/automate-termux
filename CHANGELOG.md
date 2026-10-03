@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.0
+
+- Optional wake lock: `wakeLock` in the Termux API payload, a fourth Variable set block in
+  callers, and a question in **Run command**. With `1`, the device stays awake until the
+  command finishes. It uses Automate's per-run lock and never acquires or releases Termux's
+  own wake lock, so a lock that is already on stays on.
+
 ## v1.1.0
 
 - Rename the flows so that Automate's alphabetical list groups them, with the base flow
