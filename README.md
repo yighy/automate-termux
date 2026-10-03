@@ -125,3 +125,7 @@ The last block only shows them in a dialog. Replace it with whatever should use 
 The `.flo` files open in [Automate Web Builder](https://xosh.org/AutomateWebBuilder/), a
 desktop-sized editor for Automate flows. Use **Open** on the `.flo` file. Do not go through
 its JSON import: that turns variables and expressions into plain text and breaks the flow.
+
+## License
+
+[MIT](LICENSE)
