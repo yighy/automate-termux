@@ -5,20 +5,38 @@
 
 | Flow | What it does |
 | --- | --- |
-| `flows/Termux run command.flo` | The base flow. It runs a command in Termux, waits for it to finish and returns its output and exit code. |
-| `flows/Termux uname.flo` | An example caller. It sets a command, a run mode and whether to wait for the output, then calls the base flow. Duplicate it to make your own. |
+| `flows/Termux.flo` | The base flow. It runs a command in Termux, waits for it to finish and returns its output and exit code. |
+| `flows/Termux · uname.flo` | An example caller. It sets a command, a run mode and whether to wait for the output, then calls the base flow. Duplicate it to make your own. |
 
 Each flow has a **README** entry point that opens this documentation in a dialog on the phone.
+
+## Naming
+
+Automate lists flows alphabetically. The base flow is called **Termux** and every caller
+**Termux · &lt;name&gt;**:
+
+```
+Termux            ← base flow
+Termux · backup   ← callers
+Termux · uname
+Termux · update
+```
+
+The shared prefix keeps them together, and a name that is the start of another always sorts
+first, so the base flow heads the group whatever Automate's sorting rules for punctuation.
+Renaming a flow in Automate does not break the callers: **Flow start** links to the base flow
+by id, not by name.
 
 ## Install
 
 1. Download the `.flo` files from the [latest release](../../releases/latest) or from `flows/`.
 2. In Automate, import them with **Import** in the flow list menu. The file name becomes the
-   flow name. Release downloads have dots instead of spaces (`Termux.run.command.flo`); rename
-   the flow in Automate if you like. The name does not matter to the callers.
+   flow name. Release downloads lose the ` · ` separator (`Termux.uname.flo`); rename those
+   flows in Automate to follow the [naming convention](#naming). The name does not matter to
+   the callers.
 3. Do the [one-time setup](#one-time-setup).
 4. In each caller, open the **Flow start** block and pick the **Termux API** beginning of
-   *Termux run command*. Automate identifies flows by an id that is specific to each device,
+   *Termux*. Automate identifies flows by an id that is specific to each device,
    so this link cannot be shipped in the file. Pick it again after re-importing a caller.
 
 ## One-time setup
@@ -41,7 +59,7 @@ On Android:
   directly instead of through a notification.
 - Automate asks for file access the first time it reads a result.
 
-## Base flow: Termux run command
+## Base flow: Termux
 
 It has three entry points:
 
@@ -76,7 +94,7 @@ be started.
 The reply is an app broadcast restricted to Automate's own package, so other apps do not
 receive the output.
 
-## Caller: Termux uname
+## Callers: Termux · …
 
 The settings are the first three **Variable set** blocks:
 

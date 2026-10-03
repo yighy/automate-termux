@@ -1,5 +1,16 @@
 # Changelog
 
+## v1.1.0
+
+- Rename the flows so that Automate's alphabetical list groups them, with the base flow
+  first: **Termux run command** becomes **Termux**, and callers are named
+  **Termux · &lt;name&gt;** (the example becomes **Termux · uname**). The README pages
+  inside the flows use the new names.
+- README: add a naming section.
+
+Existing installs only need the flows renamed in Automate; callers keep their link to the
+base flow.
+
 ## v1.0.0
 
 First release.
