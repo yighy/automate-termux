@@ -13,8 +13,9 @@ Each flow has a **README** entry point that opens this documentation in a dialog
 ## Install
 
 1. Download the `.flo` files from the [latest release](../../releases/latest) or from `flows/`.
-2. In Automate, import them with **Import** in the flow list menu. The file name becomes the flow name, so keep
-   `Termux run command.flo` as it is.
+2. In Automate, import them with **Import** in the flow list menu. The file name becomes the
+   flow name. Release downloads have dots instead of spaces (`Termux.run.command.flo`); rename
+   the flow in Automate if you like. The name does not matter to the callers.
 3. Do the [one-time setup](#one-time-setup).
 4. In each caller, open the **Flow start** block and pick the **Termux API** beginning of
    *Termux run command*. Automate identifies flows by an id that is specific to each device,
